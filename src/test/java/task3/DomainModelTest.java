@@ -53,10 +53,10 @@ class DomainModelTest {
 
     @Test
     public void gameCheck(){
-        assertEquals(game.getStatus().toString(), "notStarted");
+        assertEquals(game.getStatus(), PastimeStatus.notStarted);
         assertEquals(game.startJustDoIt(), "Начали игру: cricket");
-        assertEquals(game.getStatus().toString(), "inProcess");
+        assertEquals(game.getStatus(), PastimeStatus.inProcess);
         assertEquals(game.stopJustDoIt(), "Закончили игру: cricket");
-        assertEquals(game.getStatus().toString(), "finished");
+        assertEquals(game.getStatus(), PastimeStatus.finished);
     }
 }
