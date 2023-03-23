@@ -9,7 +9,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class DomainModelTest {
     static Creature[] creatures;
     static Universe[] universes;
-
     static Game game;
     static Debate debate;
     static SolvingProblem solvingProblem;
@@ -34,6 +33,21 @@ class DomainModelTest {
     }
 
     @Test
+    public void toStringCheck(){
+        for(Creature c : creatures){
+            assertEquals(c.toString(), c.getName() + ", раса: " + c.getRace() + ", вселенная: " + c.getUniverse().getName());
+        }
+
+        for(Universe u : universes){
+            assertEquals(u.toString(), "Вы находитесь здесь: " + u.getName());
+        }
+
+        assertEquals(game.toString(), "Игра: " + game.getName() + ", статус: " + game.getStatus().name());
+        assertEquals(debate.toString(), "Тема дебатов: " + debate.getTheme() + ", статус: " + debate.getStatus().name());
+        assertEquals(solvingProblem.toString(), "Проблема: " + solvingProblem.getProblem() + ", статус: " + solvingProblem.getStatus().name());
+    }
+
+    @Test
     public void raceCheck(){
         assertEquals(creatures[0].getRace(), "race1");
         assertEquals(creatures[1].getRace(), "race1");
@@ -54,9 +68,27 @@ class DomainModelTest {
     @Test
     public void gameCheck(){
         assertEquals(game.getStatus(), PastimeStatus.notStarted);
-        assertEquals(game.startJustDoIt(), "Начали игру: cricket");
+        assertEquals(game.startJustDoIt(), "Начали игру: " + game.getName());
         assertEquals(game.getStatus(), PastimeStatus.inProcess);
-        assertEquals(game.stopJustDoIt(), "Закончили игру: cricket");
+        assertEquals(game.stopJustDoIt(), "Закончили игру: " + game.getName());
         assertEquals(game.getStatus(), PastimeStatus.finished);
+    }
+
+    @Test
+    public void debateCheck(){
+        assertEquals(debate.getStatus(), PastimeStatus.notStarted);
+        assertEquals(debate.startJustDoIt(), "Начали дебаты: " + debate.getTheme());
+        assertEquals(debate.getStatus(), PastimeStatus.inProcess);
+        assertEquals(debate.stopJustDoIt(), "Закончили дебаты: " + debate.getTheme());
+        assertEquals(debate.getStatus(), PastimeStatus.finished);
+    }
+
+    @Test
+    public void problemCheck(){
+        assertEquals(solvingProblem.getStatus(), PastimeStatus.notStarted);
+        assertEquals(solvingProblem.startJustDoIt(), "Приступили к решению проблемы: " + solvingProblem.getProblem());
+        assertEquals(solvingProblem.getStatus(), PastimeStatus.inProcess);
+        assertEquals(solvingProblem.stopJustDoIt(), "Проблема: " + solvingProblem.getProblem() + ", решена");
+        assertEquals(solvingProblem.getStatus(), PastimeStatus.finished);
     }
 }
