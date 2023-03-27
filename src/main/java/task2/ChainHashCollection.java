@@ -1,5 +1,7 @@
 package task2;
 
+import jdk.nashorn.internal.runtime.regexp.joni.exception.ValueException;
+
 import java.util.*;
 
 public class ChainHashCollection<T extends Number> implements HashSort<T> {
@@ -12,7 +14,7 @@ public class ChainHashCollection<T extends Number> implements HashSort<T> {
 
     @Override
     public void sort(T[] arr) {
-        if (arr == null) return;
+        if (arr == null) throw new NullPointerException();
         for (int i = 0; i < arr.length; i++) {
             collection.add(new TreeMap<>());
         }
@@ -20,7 +22,8 @@ public class ChainHashCollection<T extends Number> implements HashSort<T> {
             if (maxValue <= (Integer) t || (Integer) t <= -maxValue) {
                 System.err.println("Превышено максимальное значение. Введите числа меньше по модулю, чем "+maxValue);
                 System.err.println("Вы ввели: " +t);
-                continue;
+                throw new ValueException("");
+                //continue;
             }
             int index = countHash(t);
             if (collection.get(index).containsKey(t)) {
@@ -38,8 +41,8 @@ public class ChainHashCollection<T extends Number> implements HashSort<T> {
         collection.clear();
     }
 
-    public void sortBC(T[] arr, BreadCrumbs bc) {
-        if (arr == null) return;
+    public void sortBC(T[] arr, BreadCrumbs bc) throws NullPointerException {
+        if (arr == null) throw new NullPointerException();
         for (int i = 0; i <= arr.length; i++) {
             collection.add(new TreeMap<>());
         }

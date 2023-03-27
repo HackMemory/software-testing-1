@@ -1,8 +1,10 @@
 package task3;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -13,8 +15,8 @@ class DomainModelTest {
     static Debate debate;
     static SolvingProblem solvingProblem;
 
-    @BeforeAll
-    public static void createAll() {
+    @BeforeEach
+    public void createAll() {
         universes = new Universe[]{
                 new Universe("test_uni1", 3),
                 new Universe("test_uni2", 4)
@@ -47,22 +49,11 @@ class DomainModelTest {
         assertEquals(solvingProblem.toString(), "Проблема: " + solvingProblem.getProblem() + ", статус: " + solvingProblem.getStatus().name());
     }
 
-    @Test
-    public void raceCheck(){
-        assertEquals(creatures[0].getRace(), "race1");
-        assertEquals(creatures[1].getRace(), "race1");
-        assertEquals(creatures[2].getRace(), "race2");
-        assertEquals(creatures[3].getRace(), "race2");
-
-        creatures[0].setRace("new_race1");
-        creatures[1].setRace("new_race1");
-        creatures[2].setRace("new_race2");
-        creatures[3].setRace("new_race2");
-
-        assertEquals(creatures[0].getRace(), "new_race1");
-        assertEquals(creatures[1].getRace(), "new_race1");
-        assertEquals(creatures[2].getRace(), "new_race2");
-        assertEquals(creatures[3].getRace(), "new_race2");
+    @ParameterizedTest
+    @CsvSource({"0, new_race1", "1, new_race2", "2, new_race3", "3, new_race4"})
+    public void raceCheck(Integer index, String value){
+        creatures[index].setRace(value);
+        assertEquals(creatures[index].getRace(), value);
     }
 
     @Test

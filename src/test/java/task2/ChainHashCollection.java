@@ -1,5 +1,6 @@
 package task2;
 
+import jdk.nashorn.internal.runtime.regexp.joni.exception.ValueException;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -29,17 +30,13 @@ class ChainHashSortTest {
     @Test
     void checkMaxVals() {
         Integer[] maxValsArr = new Integer[]{1000, 999, -1000, -999};
-        Integer[] maxValsRes = new Integer[]{-999, 999, -1000, -999};
-        sorter.sort(maxValsArr);
-        assertEquals(Arrays.toString(maxValsRes), Arrays.toString(maxValsArr));
-        assertArrayEquals(maxValsRes, maxValsArr);
+        assertThrows(ValueException.class, () -> sorter.sort(maxValsArr));
     }
 
     @Test
     void checkNull() {
         Integer[] array = null;
-        sorter.sort(array);
-        assertArrayEquals(null, array);
+        assertThrows(NullPointerException.class, () -> sorter.sort(array));
     }
 
     @Test

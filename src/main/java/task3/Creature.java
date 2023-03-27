@@ -13,6 +13,6 @@ public class Creature {
 
     @Override
     public String toString(){
-        return this.name + ", раса: " + this.race + ", вселенная: " + this.universe;
+        return this.name + ", раса: " + this.race + ", вселенная: " + this.universe.getName();
     }
 }

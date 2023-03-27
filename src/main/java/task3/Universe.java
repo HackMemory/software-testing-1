@@ -13,7 +13,7 @@ public class Universe {
 
     @Override
     public String toString(){
-        return this.name;
+        return "Вы находитесь здесь: " + this.name;
     }
 
     @Override
